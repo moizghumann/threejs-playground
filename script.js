@@ -24,14 +24,21 @@ const renderer = new WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 
+let prevTime = Date.now()
+
 // animations
 const tick = () => {
     console.log('tick');
 
+    // acheive consistent animation on all machines despite their fps support
+    const currentTime = Date.now();
+    const deltaTime = currentTime - prevTime;
+    prevTime = currentTime;
+
     // update objects
-    mesh.rotation.y += 0.01
-    mesh.rotation.x -= 0.01
-    mesh.rotation.z += 0.01
+    mesh.rotation.x += 0.001 * deltaTime
+    mesh.rotation.y += 0.001 * deltaTime
+    mesh.rotation.z += 0.001 * deltaTime
 
     // render continuously
     renderer.render(scene, camera);
