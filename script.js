@@ -1,4 +1,4 @@
-import { Scene, MeshBasicMaterial, Mesh, PerspectiveCamera, WebGLRenderer, AxesHelper, BoxGeometry, Group } from 'three'
+import { Scene, MeshBasicMaterial, Mesh, PerspectiveCamera, WebGLRenderer, AxesHelper, BoxGeometry, Group, Clock } from 'three'
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -24,21 +24,21 @@ const renderer = new WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 
-let prevTime = Date.now()
+let clock = new Clock();
 
 // animations
 const tick = () => {
     console.log('tick');
 
     // acheive consistent animation on all machines despite their fps support
-    const currentTime = Date.now();
-    const deltaTime = currentTime - prevTime;
-    prevTime = currentTime;
+    const currentTime = clock.getElapsedTime()
+    // const deltaTime = currentTime - prevTime;
+    // prevTime = currentTime;
 
     // update objects
-    mesh.rotation.x += 0.001 * deltaTime
-    mesh.rotation.y += 0.001 * deltaTime
-    mesh.rotation.z += 0.001 * deltaTime
+    mesh.rotation.x += 0.001 * currentTime
+    mesh.rotation.y += 0.001 * currentTime
+    mesh.rotation.z += 0.001 * currentTime
 
     // render continuously
     renderer.render(scene, camera);
